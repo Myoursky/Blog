@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>flex</title>
+  <link rel="stylesheet" href="./../style/reset.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    .container {
+      width: 1200px;
+      margin: 0 auto;
+      background-color: #f0f1f2;
+      padding: 20px;
+    }
+    h1,h2 {
+      color: #1a1a1a;
+      line-height: 2;
+      margin: 10px 0;
+      padding: 0 10px;
+    }
+    h1 {
+      font-size: 18px;
+      background-color: #cfcfcf;
+    }
+    h2 {
+      font-size: 16px;
+      /* background-color: #cfcfcf; */
+      border-bottom: 1px solid #ccc;
+    }
+    p {
+      font-size: 14px;
+      line-height: 2;
+      padding-left: 10px;
+    }
+    .box {
+      width: 600px;
+      height: auto;
+      background-color: #ffdd0D;
+      border-radius: 10px;
+      margin-top: 20px;
+      display: flex;
+      overflow: hidden;
+    }
+    .boxH {
+      height: 200px;
+    }
+    .boxLH {
+      height: 400px;
+    }
+    .elem {
+      background-color: #FFF;
+      padding: 20px;
+      margin: 5px;
+    }
+    .elem span {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+      line-height: 50px;
+      text-align: center;
+      background-color: #ffdd0D;
+      font-size: 30px;
+      color: #FFF;
+      font-weight: 700;
+    }
+    .elem1 span {
+      font-size: 12px;
+    }
+    .elem2 span {
+      font-size: 18px;
+    }
+    .elem3 span {
+      font-size: 13px;
+    }
+    .elem4 span {
+      font-size: 25px;
+    }
+    .box1 {
+      flex-direction: row;
+    }
+    .box2 {
+      flex-direction: row-reverse;
+    }
+    .box3 {
+      flex-direction: column;
+    }
+    .box4 {
+      flex-direction: column-reverse;
+    }
+    .box5 {
+      flex-wrap: nowrap;
+    }
+    .box6 {
+      flex-wrap: wrap;
+    }
+    .box7 {
+      flex-wrap: wrap-reverse;
+    }
+    .box8 {
+      flex-flow: row nowrap;
+    }
+    .box9 {
+      justify-content: flex-start;
+    }
+    .box10 {
+      justify-content: flex-end;
+    }
+    .box11 {
+      justify-content: center;
+    }
+    .box12 {
+      justify-content: space-between;
+    }
+    .box13 {
+      justify-content: space-around;
+    }
+    .box14 {
+      justify-content: space-evenly;
+    }
+    .box15 {
+      align-items: flex-start;
+    }
+    .box16 {
+      align-items: flex-end;
+    }
+    .box17 {
+      align-items: center;
+    }
+    .box18 {
+      align-items: baseline;
+    }
+    .box19 {
+      align-items: stretch;
+    }
+    .box20 {
+      align-content: flex-start;
+      flex-wrap: wrap;
+    }
+    .box21 {
+      align-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .box22 {
+      align-content: center;
+      flex-wrap: wrap;
+    }
+    .box23 {
+      align-content: space-between;
+      flex-wrap: wrap;
+    }
+    .box24 {
+      align-content: space-around;
+      flex-wrap: wrap;
+    }
+    .box25 {
+      align-content: stretch;
+      flex-wrap: wrap;
+    }
+    .order1 {
+      order: 1;
+    }
+    .order2 {
+      order: 2;
+    }
+    .order3 {
+      order: 3;
+    }
+    .order4 {
+      order: 4;
+    }
+    .order5 {
+      order: 5;
+    }
+    norder1 {
+      order: -1;
+    }
+    .grow1 {
+      flex-grow: 1;
+    }
+    .grow2 {
+      flex-grow: 2;
+    }
+    .boxW {
+      width: 900px;
+    }
+    .boxMW {
+      width: 850px;
+    }
+    .boxSH {
+      height: 40px;
+    }
+    .elem6 {
+      background: #BBB;
+      margin: 0;
+      padding: 0;
+    }
+    .elem7 {
+      background: #CCC;
+      margin: 0;
+      padding: 0;
+    }
+    .elem8 {
+      background: #DDD;
+      margin: 0;
+      padding: 0;
+    }
+    .elem9 {
+      background: #EEE;
+      margin: 0;
+      padding: 0;
+    }
+    .elem10 {
+      background: #FFF;
+      margin: 0;
+      padding: 0;
+    }
+    .shrink0 {
+      flex-shrink: 0;
+      padding: 0;
+      width: 100px;
+      height: 50px;
+    }
+    .shrink1 {
+      flex-shrink: 1;
+      padding: 0;
+      width: 100px;
+      height: 50px;
+    }
+    .boxSW {
+      width: 500px;
+    }
+    .basis {
+      flex-basis: auto;     
+    }
+    .basisW {
+      flex-basis: 200px;
+    }
+    .flexAuto {
+      flex: auto;
+    }
+    .align-self {
+      align-items: center;
+    }
+    .ASflex-start {
+      align-self: flex-start;
+    }
+    .ASflex-end {
+      align-self: flex-end;
+    }
+    .ASflex-center {
+      align-self: center;
+    }
+    .ASflex-baseline {
+      align-self: baseline;
+    }
+    .ASflex-stretch {
+      align-self: stretch;
+    }
+    .ASflex-auto {
+      align-self: auto;
+    }
+  </style>
+</head>
+<body>
+  <section class="container">
+    <h1>1.flex-direction属性</h1>
+    <p>flex-direction: row | row-reverse | column | column-reverse</p>
+    <h2>row</h2>
+    <div class="box box1">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+    </div>
+    <h2>row-reverse</h2>
+    <div class="box box2">
+        <div class="elem"><span>1</span></div>
+        <div class="elem"><span>2</span></div>
+        <div class="elem"><span>3</span></div>
+    </div>
+    <h2>column</h2>
+    <div class="box box3">
+        <div class="elem"><span>1</span></div>
+        <div class="elem"><span>2</span></div>
+        <div class="elem"><span>3</span></div>
+    </div>
+    <h2>column-reverse</h2>
+    <div class="box box4">
+        <div class="elem"><span>1</span></div>
+        <div class="elem"><span>2</span></div>
+        <div class="elem"><span>3</span></div>
+    </div>
+
+    <h1>2.flex-wrap属性</h1>
+    <p>flex-wrap: nowrap | wrap | wrap-reverse</p>
+    <h2>nowrap</h2>
+    <div class="box box5">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+      <div class="elem"><span>5</span></div>
+      <div class="elem"><span>6</span></div>
+      <div class="elem"><span>7</span></div>
+    </div>
+    <h2>wrap</h2>
+    <div class="box box6">
+        <div class="elem"><span>1</span></div>
+        <div class="elem"><span>2</span></div>
+        <div class="elem"><span>3</span></div>
+        <div class="elem"><span>4</span></div>
+        <div class="elem"><span>5</span></div>
+        <div class="elem"><span>6</span></div>
+        <div class="elem"><span>7</span></div>
+    </div>
+    <h2>wrap-reverse</h2>
+    <div class="box box7">
+        <div class="elem"><span>1</span></div>
+        <div class="elem"><span>2</span></div>
+        <div class="elem"><span>3</span></div>
+        <div class="elem"><span>4</span></div>
+        <div class="elem"><span>5</span></div>
+        <div class="elem"><span>6</span></div>
+        <div class="elem"><span>7</span></div>
+    </div>
+
+    <h1>3.flex-flow</h1>
+    <p>flex-direction和flex-wrap的缩写,默认值row nowrap</p>
+    <h2>row nowrap</h2>
+    <div class="box box8">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+      <div class="elem"><span>5</span></div>
+      <div class="elem"><span>6</span></div>
+      <div class="elem"><span>7</span></div>
+    </div>
+
+    <h1>4.justify-content</h1>
+    <p>flex-start | flex-end | center | space-between | space-around | space-evenly;</p>
+    <h2>flex-start</h2>
+    <div class="box box9">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+    <h2>flex-end</h2>
+    <div class="box box10">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+    <h2>center</h2>
+    <div class="box box11">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+    <h2>space-between</h2>
+    <div class="box box12">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+    <h2>space-around</h2>
+    <div class="box box13">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+    <h2>space-evenly</h2>
+    <div class="box box14">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+
+    <h1>5.align-items</h1>
+    <p>flex-start | flex-end | center | baseline | stretch</p>
+    <h2>flex-start</h2>
+    <div class="box boxH box15">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+    <h2>flex-end</h2>
+    <div class="box boxH box16">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+    <h2>center</h2>
+    <div class="box boxH box17">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+    <h2>baseline</h2>
+    <div class="box boxH box18">
+      <div class="elem elem1"><span>1</span></div>
+      <div class="elem elem2"><span>2</span></div>
+      <div class="elem elem3"><span>3</span></div>
+      <div class="elem elem4"><span>4</span></div>
+    </div>
+    <h2>stretch</h2>
+    <div class="box boxH box19">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+    </div>
+
+    <h1>5.align-content</h1>
+    <p>flex-start | flex-end | center | space-between | space-around | stretch</p>
+    <h2>flex-start</h2>
+    <div class="box boxLH box20">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+      <div class="elem"><span>5</span></div>
+      <div class="elem"><span>6</span></div>
+      <div class="elem"><span>7</span></div>
+      <div class="elem"><span>8</span></div>
+      <div class="elem"><span>9</span></div>
+      <div class="elem"><span>10</span></div>
+      <div class="elem"><span>11</span></div>
+      <div class="elem"><span>12</span></div>
+      <div class="elem"><span>13</span></div>
+      <div class="elem"><span>14</span></div>
+    </div>
+    <h2>flex-end</h2>
+    <div class="box boxLH box21">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+      <div class="elem"><span>5</span></div>
+      <div class="elem"><span>6</span></div>
+      <div class="elem"><span>7</span></div>
+      <div class="elem"><span>8</span></div>
+      <div class="elem"><span>9</span></div>
+      <div class="elem"><span>10</span></div>
+      <div class="elem"><span>11</span></div>
+      <div class="elem"><span>12</span></div>
+      <div class="elem"><span>13</span></div>
+      <div class="elem"><span>14</span></div>
+    </div>
+    <h2>center</h2>
+    <div class="box boxLH box22">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+      <div class="elem"><span>5</span></div>
+      <div class="elem"><span>6</span></div>
+      <div class="elem"><span>7</span></div>
+      <div class="elem"><span>8</span></div>
+      <div class="elem"><span>9</span></div>
+      <div class="elem"><span>10</span></div>
+      <div class="elem"><span>11</span></div>
+      <div class="elem"><span>12</span></div>
+      <div class="elem"><span>13</span></div>
+      <div class="elem"><span>14</span></div>
+    </div>
+    <h2>space-between</h2>
+    <div class="box boxLH box23">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+      <div class="elem"><span>5</span></div>
+      <div class="elem"><span>6</span></div>
+      <div class="elem"><span>7</span></div>
+      <div class="elem"><span>8</span></div>
+      <div class="elem"><span>9</span></div>
+      <div class="elem"><span>10</span></div>
+      <div class="elem"><span>11</span></div>
+      <div class="elem"><span>12</span></div>
+      <div class="elem"><span>13</span></div>
+      <div class="elem"><span>14</span></div>
+    </div>
+    <h2>space-around</h2>
+    <div class="box boxLH box24">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+      <div class="elem"><span>5</span></div>
+      <div class="elem"><span>6</span></div>
+      <div class="elem"><span>7</span></div>
+      <div class="elem"><span>8</span></div>
+      <div class="elem"><span>9</span></div>
+      <div class="elem"><span>10</span></div>
+      <div class="elem"><span>11</span></div>
+      <div class="elem"><span>12</span></div>
+      <div class="elem"><span>13</span></div>
+      <div class="elem"><span>14</span></div>
+    </div>
+    <h2>stretch</h2>
+    <div class="box boxLH box25">
+      <div class="elem"><span>1</span></div>
+      <div class="elem"><span>2</span></div>
+      <div class="elem"><span>3</span></div>
+      <div class="elem"><span>4</span></div>
+      <div class="elem"><span>5</span></div>
+      <div class="elem"><span>6</span></div>
+      <div class="elem"><span>7</span></div>
+      <div class="elem"><span>8</span></div>
+      <div class="elem"><span>9</span></div>
+      <div class="elem"><span>10</span></div>
+      <div class="elem"><span>11</span></div>
+      <div class="elem"><span>12</span></div>
+      <div class="elem"><span>13</span></div>
+      <div class="elem"><span>14</span></div>
+    </div>
+
+    <h1>6.order</h1>
+    <h2>order</h2>
+    <div class="box">
+      <div class="elem order3"><span>1</span></div>
+      <div class="elem order1"><span>2</span></div>
+      <div class="elem order2"><span>3</span></div>
+      <div class="elem order5"><span>4</span></div>
+      <div class="elem order4"><span>5</span></div>
+      <div class="elem norder1"><span>6</span></div>
+    </div>
+
+    <h1>7.flex-grow</h1>
+    <p>flex-grow的作用是分配父容器的剩余空间,如果子元素设置的值相等，则等比分配。否则则按设置值所占整体比例来分配。</p>
+    <p>示例2: 容器宽度为850px。子元素原始大小为40px。margin总和为50px。则剩余空间 = 850 - 50 - 40 * 5 = 600px。然后平分为6份。第二个子元素占两份。所以得到排版如下。</p>
+    <div class="box boxW">
+      <div class="elem grow1"><span>1</span></div>
+      <div class="elem grow1"><span>2</span></div>
+      <div class="elem grow1"><span>3</span></div>
+      <div class="elem grow1"><span>4</span></div>
+      <div class="elem grow1"><span>5</span></div>
+    </div>
+
+    <div class="box boxMW">
+      <div class="elem grow1"></div>
+      <div class="elem grow2"></div>
+      <div class="elem grow1"></div>
+      <div class="elem grow1"></div>
+      <div class="elem grow1"></div>
+    </div>
+
+    <h1>8.flex-shrink</h1>
+    <p>default value: 1</p>
+    <p>flex-shrink意为当子元素超过父元素宽度时，按比例压缩子元素。如果设置为0，则该元素不压缩。此处父元素宽度为500px。出去margin总和70px。和shrink0占据的100px。还剩于330px。给剩下的6个子元素平分，每个子元素分配到55px。</p>
+    <div class="box boxSW">
+      <div class="elem shrink1"></div>
+      <div class="elem shrink0"></div>
+      <div class="elem shrink1"></div>
+      <div class="elem shrink1"></div>
+      <div class="elem shrink1"></div>
+      <div class="elem shrink1"></div>
+      <div class="elem shrink1"></div>
+    </div>
+
+    <h1>9.flex-basis</h1>
+    <p>default value: auto,作用类似于width和height,但优先级高于width和height。</p>
+    <div class="box boxSW">
+      <div class="elem basis"></div>
+      <div class="elem basisW"></div>
+      <div class="elem basis"></div>
+      <div class="elem basis"></div>
+      <div class="elem basis"></div>
+    </div>
+
+    <h1>10.flex</h1>
+    <p>flex-grow,flex-shrink和flex-basis的缩写形式。默认值为(0 1 auto),可以设置为auto（1 1 auto）和none（0 0 auto）。</p>
+    <div class="box">
+      <div class="elem flexAuto"><span>1</span></div>
+      <div class="elem flexAuto"><span>2</span></div>
+      <div class="elem flexAuto"><span>3</span></div>
+      <div class="elem flexAuto"><span>4</span></div>
+      <div class="elem flexAuto"><span>5</span></div>
+    </div>
+
+    <h1>11.align-self</h1>
+    <p>flex-start | flex-end | center | baseline | stretch | auto</p>
+    <div class="box boxH">
+      <div class="elem ASflex-start"><span>1</span></div>
+      <div class="elem ASflex-end"><span>2</span></div>
+      <div class="elem ASflex-center"><span>3</span></div>
+      <div class="elem ASflex-baseline"><span>4</span></div>
+      <div class="elem ASflex-stretch"><span>5</span></div>
+      <div class="elem ASflex-auto"><span>6</span></div>
+    </div>
+    
+  </section>
+</body>
+</html>
