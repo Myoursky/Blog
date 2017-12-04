@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./../../style/reset.css">
+  <style>
+    @font-face {
+      font-family: 'iconfont';
+      src: url('./../../fonts/iconfont.eot'); /* IE9*/
+      src: url('./../../fonts/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+      url('./../../fonts/iconfont.woff') format('woff'), /* chrome、firefox */
+      url('./../../fonts/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+      url('./../../fonts/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+    }
+    .iconfont{
+      font-family:"iconfont" !important;
+      font-size:16px;font-style:normal;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-stroke-width: 0.2px;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    #showBtn {
+      width: 100px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      background-color: #0099FF;
+      font-size: 15px;
+      color: #FFF;
+      margin: 40px auto 0;
+    }
+    #video-model-dialog {
+      position:fixed;
+      z-index:999;
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      display:none;
+      text-align:center
+    }
+    #video-model-dialog .cover {
+      position:absolute;
+      z-index:-1;
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      opacity:.6;
+      filter:progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+      background-color:#000
+    }
+    #video-model-dialog .video-dialog {
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      margin:auto;
+      width:800px;
+      height:557px;
+      background-color:#212121
+    }
+    #video-model-dialog .video-dialog .close {
+      position:absolute;
+      right:-46px;
+      top:0;
+      width:46px;
+      height:46px;
+      color:#6a6a6a;
+      background-color:#000;
+      line-height:46px;
+      font-size:20px;
+      cursor:pointer
+    }
+    #video-model-dialog .video-dialog .close:hover {
+      color:#fff
+    }
+    #video-model-dialog .video-view {
+      position:absolute;
+      left:0;
+      right:0;
+      height:79px;
+      bottom:0;
+      padding:14px 32px;
+      background-color:#212121
+    }
+    #video-model-dialog .video-view .video-list {
+      width:736px;
+      height:79px;
+      overflow:hidden
+    }
+    #video-model-dialog .video-view .video-list ul {
+      position:relative;
+      -webkit-transition:left .4s;
+      transition:left .4s;
+      left:0;
+      margin:0;
+      padding:0;
+      list-style:none;
+      width:1314px;
+      height:79px
+    }
+    #video-model-dialog .video-view .video-list ul li {
+      height:79px;
+      position:relative;
+      margin-right:6px;
+      cursor:pointer;
+      float:left
+    }
+    #video-model-dialog .video-view .video-list ul li .video-mask {
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+      background-color:rgba(0, 0, 0, .4)
+    }
+    #video-model-dialog .video-view .video-list ul li .video-mask .iconfont {
+      position:absolute;
+      display:none;
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      margin:auto;
+      width:36px;
+      height:36px;
+      font-size:24px;
+      color:#fff;
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+      background-color:rgba(0, 0, 0, .6);
+      border-radius:100%
+    }
+    #video-model-dialog .video-view .video-list ul li:hover .video-mask {
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000);
+      background-color:transparent
+    }
+    #video-model-dialog .video-view .video-list ul li:hover .video-mask .iconfont {
+      display:block;
+      line-height: 1.5
+    }
+    #video-model-dialog .video-view .video-list ul li.active .video-mask {
+      filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#00000000);
+      background-color:transparent
+    }
+    #video-model-dialog .video-view .video-list ul li.active .video-mask .iconfont {
+      display:none
+    }
+    #video-model-dialog .video-view .video-list ul li img {
+      width:140px;
+      height:79px
+    }
+    #video-model-dialog .video-view .nav-icon {
+      position:absolute;
+      top:14px;
+      bottom:14px;
+      font-size:16px;
+      width:16px;
+      line-height:79px;
+      background-color:#000;
+      color:#6a6a6a;
+      cursor:pointer
+    }
+    #video-model-dialog .video-view .nav-icon:hover {
+      color:#fff
+    }
+    #video-model-dialog .video-view .nav-icon.video-prev {
+      left:11px
+    }
+    #video-model-dialog .video-view .nav-icon.video-next {
+      right:11px
+    }
+  </style>
+</head>
+<body>
+  <div id="showBtn">查看视频</div>
+  <div id="video-model-dialog">
+    <div class="cover"></div>
+    <div class="video-dialog">
+      <object type="application/x-shockwave-flash" width="100%" height="100%" bgcolor="#000000" id="video" name="video" tabindex="0">
+        <param name="allowfullscreen" value="true">
+        <param name="allowscriptaccess" value="always">
+        <param name="seamlesstabbing" value="true">
+        <param name="wmode" value="opaque">
+      </object>
+      <i class="iconfont close">&#xe610;</i>
+      <div class="video-view">
+        <div class="video-list">
+          <ul>
+              <li class="active"><div class="video-mask"><i class="iconfont">&#xe65c;</i></div><img src="http://www.waiqin365.com/p/images/v2/product/v/video.jpg" data-video="http://res.waiqin365.com/video/v1001.mp4" /></li>
+              <li><div class="video-mask"><i class="iconfont">&#xe65c;</i></div><img src="http://www.waiqin365.com/p/images/v2/product/v/s1002.jpg" data-video="http://res.waiqin365.com/video/v1002.mp4" /></li>
+              <li><div class="video-mask"><i class="iconfont">&#xe65c;</i></div><img src="http://www.waiqin365.com/p/images/v2/product/v/s1003.jpg" data-video="http://res.waiqin365.com/video/v1003.mp4" /></li>
+              <li><div class="video-mask"><i class="iconfont">&#xe65c;</i></div><img src="http://www.waiqin365.com/p/images/v2/product/v/s1004.jpg" data-video="http://res.waiqin365.com/video/v1004.mp4" /></li>
+              <li><div class="video-mask"><i class="iconfont">&#xe65c;</i></div><img src="http://www.waiqin365.com/p/images/v2/product/v/s1005.jpg" data-video="http://res.waiqin365.com/video/v1005.mp4" /></li>
+              <li><div class="video-mask"><i class="iconfont">&#xe65c;</i></div><img src="http://www.waiqin365.com/p/images/v2/product/v/s1006.jpg" data-video="http://res.waiqin365.com/video/v1006.mp4" /></li>
+              <li><div class="video-mask"><i class="iconfont">&#xe65c;</i></div><img src="http://www.waiqin365.com/p/images/v2/product/v/s1007.jpg" data-video="http://res.waiqin365.com/video/v1007.mp4" /></li>
+              <li><div class="video-mask"><i class="iconfont">&#xe65c;</i></div><img src="http://www.waiqin365.com/p/images/v2/product/v/s1008.jpg" data-video="http://res.waiqin365.com/video/v1008.mp4" /></li>
+          </ul>
+        </div>
+        <i class="nav-icon iconfont video-prev">&#xe60f;</i>
+        <i class="nav-icon iconfont video-next">&#xe60e;</i>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="http://www.waiqin365.com/p/js/jwplayer/jwplayer.js"></script>
+  <script src="http://www.waiqin365.com/p/js/jwplayer/jwpsrv.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      var showBtn = $("#showBtn");
+      var videoDialog = $("#video-model-dialog");
+      var videoContainer = $('.video-list ul');
+      var videos = $('.video-list ul li');
+      var closeBtn = $('.close');
+      var cover = $('.cover');
+
+      showBtn.click(function() {
+        var img = $(videos[0]).find('img').attr('src');
+        var video = $(videos[0]).find('img').attr('data-video');
+        window.jwplayer.key = 'BC9ahgShNRQbE4HRU9gujKmpZItJYh5j/+ltVg==';
+        window.jwplayer('video').setup({
+          flashplayer: 'http://www.waiqin365.com/p/js/jwplayer/jwplayer.flash.swf',
+          img: img,
+          file: video,
+          width: 800,
+          height: 450,
+          autostart: true,
+        });
+        setTimeout(function(){
+          videoDialog.show();
+        }, 100);
+      });
+
+      closeBtn.click(function(){
+        videoDialog.hide();
+        videos.each(function(video){
+          $(video).removeClass('active');
+        });
+        $(videos[0]).addClass('active');
+        window.jwplayer('video').stop();
+        videoContainer.css('left', 0);
+      });
+
+      cover.click(function(){
+        videoDialog.hide();
+        videos.each(function(video){
+          $(video).removeClass('active');
+        });
+        $(videos[0]).addClass('active');
+        window.jwplayer('video').stop();
+        videoContainer.css('left', 0);
+      });
+
+      videos.click(function(){
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        var img = $(this).find('img').attr('src');
+        var video = $(this).find('img').attr('data-video');
+        window.jwplayer.key = 'BC9ahgShNRQbE4HRU9gujKmpZItJYh5j/+ltVg==';
+        window.jwplayer('video').setup({
+          img: img,
+          file: video,
+          width: 800,
+          height: 450,
+          autostart: true,
+          primary: 'flash'
+        });
+      });
+
+      //   // 视频菜单滑动
+      var swipeLength = videos.length - 5;
+      videoContainer.css('width', videos.length * 146 + 'px');
+      var currentIndex = 0;
+      $('.video-next').click(function(){
+        if (currentIndex < swipeLength) {
+          currentIndex++;
+          videoContainer.css('left', -146 * currentIndex + 'px');
+        }
+      });
+      $('.video-prev').click(function(){
+        if (currentIndex > 0) {
+          currentIndex--;
+          videoContainer.css('left', -146 * currentIndex + 'px');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
